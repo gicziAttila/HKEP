@@ -30,6 +30,7 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center flex-column kontener"
         style="display: block;">
+        <button class="btn btn-danger align-self-end" id="signOutBtn">Kijelentkezés</button>
         <form class="d-flex align-items-center w-50 text-center flex-column p-3 mt-1 glass" id="registrationForm">
             <p class="text-light fs-1 mb-3">Személyes Könyvtár Kezelő</p>
             <div class="row mb-3">
@@ -40,7 +41,8 @@
                     <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="author">
                 </div>
                 <div class="col">
-                    <input type="number" class="form-control" placeholder="Elolvasott oldalak száma" name="" id="pageNumber">
+                    <input type="number" class="form-control" placeholder="Elolvasott oldalak száma" name=""
+                        id="pageNumber">
                 </div>
             </div>
             <div class="mb-3">
@@ -83,5 +85,34 @@
     </table>
     </div>
 </body>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { signOut, onAuthStateChanged, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        //idk
+    }
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app)
+
+    const singOutBtn = document.getElementById("signOutBtn")
+
+    onAuthStateChanged(auth, function (user) {
+        if (user) {
+            singOutBtn.style.display = "block"
+        } else {
+            singOutBtn.style.display = "none"
+        }
+    })
+
+    singOutBtn.addEventListener("click", function () {
+        window.location.href = "login.html"
+        signOut(auth)
+    })
+ 
+
+</script>
 
 </html>
