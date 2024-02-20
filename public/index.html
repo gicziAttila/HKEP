@@ -28,36 +28,59 @@
 </style>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Szűrés</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <form class="d-flex" role="search" id="szuresForm">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="cimInput">
+            </form>
+          </div>
+        </div>
+      </nav>
     <div class="container-fluid d-flex justify-content-center align-items-center flex-column kontener"
         style="display: block;">
+        <button class="btn btn-danger align-self-end mt-3" id="signOutBtn">Kijelentkezés</button>
         <form class="d-flex align-items-center w-50 text-center flex-column p-3 mt-1 glass" id="registrationForm">
             <p class="text-light fs-1 mb-3">Személyes Könyvtár Kezelő</p>
             <div class="row mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Könyv címe" id="bookName">
+                    <input type="text" class="form-control" placeholder="Könyv címe" id="bookName" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="author">
+                    <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="author" required>
                 </div>
                 <div class="col">
-                    <input type="number" class="form-control" placeholder="Elolvasott oldalak száma" name="" id="pageNumber">
+                    <input type="number" class="form-control" placeholder="Elolvasott oldalak száma" name=""
+                        id="pageNumber" required>
                 </div>
             </div>
             <div class="mb-3">
-                <input type="number" class="form-control" placeholder="Kiadási év" id="releaseDate">
+                <input type="number" class="form-control" placeholder="Kiadási év" id="releaseDate" required>
             </div>
             <div class="mb-3">
-                <input type="textarea" class="form-control" placeholder="Könyv összefoglaló" id="opinion">
+                <input type="textarea" class="form-control" placeholder="Könyv összefoglaló" id="opinion" required>
             </div>
-            <button type="submit" class="btn btn-light">Hozzáadás</button>
+            <div class="row mb-3">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Hozzáadás</button>
+                </div>
         </form>
     </div>
     <div class="mt-3 container-fluid d-flex justify-content-center align-items-center flex-column kontener"
         style="display: block;"></div>
-        <ul id="message-list" class="list-group mt-4"></ul>
+    <ul id="message-list" class="list-group mt-4"></ul>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyC30jfb2mbvBaUQTdXSY29KZbWbgJIaiLY",
@@ -66,17 +89,48 @@
             storageBucket: "hkep-941ee.appspot.com",
             messagingSenderId: "924015626598",
             appId: "1:924015626598:web:d1c059c3646dbbb94060a7"
-       };
+        };
+
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore(app);
 
-        document.getElementById("registrationForm").addEventListener('submit', function (e) {
-            e.preventDefault();
+        db.collection("konyvek").onSnapshot((querySnapshot) => {
+            const documents = querySnapshot.docs;
+            let list = document.getElementById("message-list")
+            list.innerHTML = "";
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const li = document.createElement("li");
+                li.classList.add('list-group-item');
+                li.innerText = data.szerzo + " " + data.cim + " ; Kiadási év: " + data.kiadasEv + " ; Elolvasott oldalak száma: " + data.oldalakSzama + " ; Véleményem: " + data.osszefoglalo;
+                list.appendChild(li);
+            })
+        })
+
+        /*
+        auth.onAuthStateChanged(auth, function (user) {
+            if (user) {
+                singOutBtn.style.display = "block"
+            } else {
+                singOutBtn.style.display = "none"
+            }
+        })
+        */
+
+        const singOutBtn = document.getElementById("signOutBtn")
+        singOutBtn.addEventListener("click", function () {
+            window.location.href = "login.html"
+            //signOut(auth)
+        })
+
+        document.getElementById("registrationForm").addEventListener('submit', function (event) {
+            event.preventDefault();
             const book = document.getElementById("bookName").value;
             const releaseDate = document.getElementById("releaseDate").value;
             const author = document.getElementById("author").value;
             const pageNumber = document.getElementById("pageNumber").value;
             const opinion = document.getElementById("opinion").value;
+
 
             db.collection("konyvek").add({
                 cim: book,
@@ -84,15 +138,16 @@
                 oldalakSzama: pageNumber,
                 osszefoglalo: opinion,
                 szerzo: author
-                
+
             })
-            .then((docRef) => {
+                .then((docRef) => {
                     console.log(docRef.id)
-            })
-            .catch((error) => {
+                })
+                .catch((error) => {
                     console.error(error)
-            });
-            db.collection("konyvek").onSnapshot((querySnapshot) =>{
+                });
+
+            db.collection("konyvek").onSnapshot((querySnapshot) => {
                 const documents = querySnapshot.docs;
                 let list = document.getElementById("message-list")
                 list.innerHTML = "";
@@ -105,6 +160,27 @@
                 })
             })
         })
+
+        const szuresForm = document.getElementById("szuresForm")
+        szuresForm.addEventListener("keyup", function (event) {
+            const cimInput = document.getElementById("cimInput").value
+            const list = document.getElementById("message-list")
+            list.innerHTML = ""
+
+            db.collection("konyvek").onSnapshot((querySnapshot) => {
+                const documents = querySnapshot.docs;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if ((data.cim).includes(cimInput)) {
+                        const li = document.createElement("li");
+                        li.classList.add('list-group-item');
+                        li.innerText = data.szerzo + " " + data.cim + " ; Kiadási év: " + data.kiadasEv + " ; Elolvasott oldalak száma: " + data.oldalakSzama + " ; Véleményem: " + data.osszefoglalo;
+                        list.appendChild(li);
+                    }
+                })
+            })
+        })
     </script>
 </body>
+
 </html>
