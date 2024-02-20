@@ -25,35 +25,46 @@
         backdrop-filter: blur(4.8px);
         -webkit-backdrop-filter: blur(4.8px);
     }
+
+    .glassNavbar {
+        background: rgba(255, 255, 255, 0.23);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4.8px);
+        -webkit-backdrop-filter: blur(4.8px);
+    }
 </style>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg glassNavbar">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Szűrés</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            </ul>
-            <form class="d-flex" role="search" id="szuresForm">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="cimInput">
-            </form>
-          </div>
+            <a class="navbar-brand text-white" href="#">Szűrés</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <form class="d-flex" role="search" id="szuresForm">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        id="cimInput">
+                </form>
+                <button class="btn btn-danger align-self-end" id="signOutBtn">Kijelentkezés</button>
+            </div>
         </div>
-      </nav>
+    </nav>
     <div class="container-fluid d-flex justify-content-center align-items-center flex-column kontener"
         style="display: block;">
-        <button class="btn btn-danger align-self-end mt-3" id="signOutBtn">Kijelentkezés</button>
-        <form class="d-flex align-items-center w-50 text-center flex-column p-3 mt-1 glass" id="registrationForm">
+        <form class="d-flex align-items-center w-50 text-center flex-column p-3 mt-3 glass" id="registrationForm">
             <p class="text-light fs-1 mb-3">Személyes Könyvtár Kezelő</p>
             <div class="row mb-3">
                 <div class="col">
                     <input type="text" class="form-control" placeholder="Könyv címe" id="bookName" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="author" required>
+                    <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="author"
+                        required>
                 </div>
                 <div class="col">
                     <input type="number" class="form-control" placeholder="Elolvasott oldalak száma" name=""
@@ -102,6 +113,10 @@
                 const data = doc.data();
                 const li = document.createElement("li");
                 li.classList.add('list-group-item');
+                li.classList.add('glassNavbar');
+                li.classList.add('text-white');
+                li.classList.add('fs-5');
+                li.classList.add('mt-2');
                 li.innerText = data.szerzo + " " + data.cim + " ; Kiadási év: " + data.kiadasEv + " ; Elolvasott oldalak száma: " + data.oldalakSzama + " ; Véleményem: " + data.osszefoglalo;
                 list.appendChild(li);
             })
@@ -155,6 +170,10 @@
                     const data = doc.data();
                     const li = document.createElement("li");
                     li.classList.add('list-group-item');
+                    li.classList.add('glassNavbar');
+                    li.classList.add('text-white');
+                    li.classList.add('fs-5');
+                    li.classList.add('mt-2');
                     li.innerText = data.szerzo + " " + data.cim + " ; Kiadási év: " + data.kiadasEv + " ; Elolvasott oldalak száma: " + data.oldalakSzama + " ; Véleményem: " + data.osszefoglalo;
                     list.appendChild(li);
                 })
@@ -174,6 +193,10 @@
                     if ((data.cim).includes(cimInput)) {
                         const li = document.createElement("li");
                         li.classList.add('list-group-item');
+                        li.classList.add('glassNavbar');
+                        li.classList.add('text-white');
+                        li.classList.add('fs-5');
+                        li.classList.add('mt-2');
                         li.innerText = data.szerzo + " " + data.cim + " ; Kiadási év: " + data.kiadasEv + " ; Elolvasott oldalak száma: " + data.oldalakSzama + " ; Véleményem: " + data.osszefoglalo;
                         list.appendChild(li);
                     }
