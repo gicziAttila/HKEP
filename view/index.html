@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Főoldal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </head>
 <style>
-    body{
+    body {
         background-image: url(./assets/bev.jpg);
         background-repeat: no-repeat;
         background-size: auto;
     }
-    .glass{
+
+    .glass {
         background: rgba(255, 255, 255, 0.23);
         border-radius: 16px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -21,33 +26,66 @@
         -webkit-backdrop-filter: blur(4.8px);
     }
 </style>
+
 <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center flex-column kontener" style="display: block;">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-column kontener"
+        style="display: block;">
         <form class="d-flex align-items-center w-50 text-center flex-column p-3 mt-1 glass" id="registrationForm">
             <p class="text-light fs-1 mb-3">Személyes Könyvtár Kezelő</p>
             <div class="row mb-3">
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Könyv címe" id="">
+                    <input type="text" class="form-control" placeholder="Könyv címe" id="">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="">
+                    <input type="text" class="form-control" placeholder="Szerzője" aria-label="Last name" id="">
                 </div>
                 <div class="col">
                     <input type="number" class="form-control" placeholder="Oldalak száma" name="" id="">
                 </div>
-              </div>
+            </div>
             <div class="mb-3">
                 <input type="date" class="form-control" placeholder="Szerző" id="releaseDate">
             </div>
             <div class="mb-3">
                 <input type="textarea" class="form-control" placeholder="Könyv összefoglaló" id="releaseDate">
             </div>
-                <button type="button" class="btn btn-light">Hozzáadás</button>
+            <button type="button" class="btn btn-light">Hozzáadás</button>
             <div class="line2 mt-4"></div>
             <div class="mt-3">
                 <a class="text-light linkStyle" href="/view/signup.html">Ha még nem rendelkezel fiókkal kattints ide</a>
             </div>
         </form>
     </div>
+
+    <div class="mt-3 container-fluid d-flex justify-content-center align-items-center flex-column kontener"
+        style="display: block;"></div>
+    <table class="table table-stripped glass" id="">
+        <thead>
+            <tr>
+                <th scope="col">Könyv címe</th>
+                <th scope="col">Szerző</th>
+                <th scope="col">Kiadás dátuma</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Az aranyember</td>
+                <td>Jókai Mór</td>
+                <td>1950</td>
+            </tr>
+            <tr>
+                <td>Én vagyok igen</td>
+                <td>Igen</td>
+                <td>2089</td>
+            </tr>
+            <tr>
+                <td>Én vagyok nem</td>
+                <td>Nem</td>
+                <td>2098</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
 </body>
+
 </html>
